@@ -35,3 +35,4 @@ def main(argv = sys.argv[1:]):
         case 'reset': cmd_reset(args)
         case 'tag': cmd_tag(args)
         case _ : print("Bad command")
+        
