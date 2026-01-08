@@ -1,0 +1,2 @@
+[console_scripts]
+wyag = wyag.cli:main

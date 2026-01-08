@@ -1,0 +1,99 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wyag"
+version = "0.1.0"
+description = "Git implementation in Python"
+authors = [{name = "Alejandro Flores", email = "spaghettijoe2@gmail.com"}]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+license = {text = "MIT"} 
+
+[project.scripts]
+wyag = "wyag.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "pytest-xdist>=3.0",
+    "pytest-mock>=3.0",
+    "black>=25.12.0",
+    "isort>=7.0.0",
+    "flake8>=7.3.0",
+    "mypy>=1.0",
+    "pre-commit>=4.5.1",
+]
+
+# Optional: GUI scripts if you ever need them
+#[project.gui-scripts]
+# wyag-gui = "wyag.gui:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["wyag*"]
+exclude = ["test*", "*test*"]
+
+# Optional: Explicit package directories
+[tool.setuptools.package-dir]
+"" = "src"
+"wyag" = "src/wyag"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--tb=short",
+    "-v",
+    "--color=yes"
+]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src/wyag"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:"
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
